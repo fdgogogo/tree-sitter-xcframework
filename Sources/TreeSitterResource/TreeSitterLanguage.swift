@@ -1,5 +1,6 @@
 import Foundation
 import TreeSitter
+import TreeSitterYAML
 
 public enum TreeSitterLanguage: CaseIterable, Hashable {
     case css
@@ -13,6 +14,7 @@ public enum TreeSitterLanguage: CaseIterable, Hashable {
     case python
     case ruby
     case swift
+    case yaml
 
     var queryDirectoryName: String {
         switch self {
@@ -38,6 +40,8 @@ public enum TreeSitterLanguage: CaseIterable, Hashable {
             return "ruby"
         case .swift:
             return "swift"
+        case .yaml:
+            return "yaml"
         }
     }
 
@@ -65,6 +69,8 @@ public enum TreeSitterLanguage: CaseIterable, Hashable {
             return tree_sitter_ruby()
         case .swift:
             return tree_sitter_swift()
+        case .yaml:
+            return tree_sitter_yaml()
         }
     }
 

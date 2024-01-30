@@ -8,9 +8,12 @@ let package = Package(
     products: [
         .library(
             name: "TreeSitter",
-            targets: ["TreeSitter", "TreeSitterResource"]),
+            targets: ["TreeSitter", "TreeSitterResource"])
     ],
-    dependencies: [],
+    dependencies: [
+        .package(
+            url: "https://github.com/mattmassicotte/tree-sitter-yaml.git", branch: "feature/spm")
+    ],
     targets: [
         .binaryTarget(
             name: "TreeSitter",
@@ -18,11 +21,15 @@ let package = Package(
         ),
         .target(
             name: "TreeSitterResource",
-            dependencies: ["TreeSitter"],
+            dependencies: [
+                "TreeSitter",
+                .product(name: "TreeSitterYAML", package: "tree-sitter-yaml"),  // 添加 tree-sitter-yaml 作为依赖
+            ],
             resources: [
                 .copy("LanguageResources")
             ],
             linkerSettings: [.linkedLibrary("c++")]
-        )
+        ),
+
     ]
 )
